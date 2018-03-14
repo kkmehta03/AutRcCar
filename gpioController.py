@@ -51,15 +51,15 @@ def clean():
     GPIO.cleanup()
 try:
 with picamera.PiCamera() as camera:
-camera.resolution = (320, 240)
-camera.framerate = 10
-time.sleep(2)
-start = time.time()
-stream = io.BytesIO()
+     camera.resolution = (320, 240)
+     camera.framerate = 10
+     time.sleep(2)
+     start = time.time()
+     stream = io.BytesIO()
 
-    for foo in camera.capture_continuous(stream, 'jpeg', use_video_port = True):
-        connection.write(struct.pack('<L', stream.tell()))
-        connection.flush()
+     for foo in camera.capture_continuous(stream, 'jpeg', use_video_port = True):
+           connection.write(struct.pack('<L', stream.tell()))
+           connection.flush()
         stream.seek(0)
         connection.write(stream.read())
         if time.time() - start > 600:
