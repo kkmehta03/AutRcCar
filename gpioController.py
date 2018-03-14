@@ -1,6 +1,13 @@
 import RPi.GPIO as GPIO
-import sys
-import Tkinter as tk
+import io
+import socket
+import struct
+import time
+import picamera
+
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect(('192.168.1.2', 8000))
+connection = client_socket.makefile('wb')
 
 def init():
     GPIO.setmode(GPIO.BOARD)
@@ -42,31 +49,36 @@ def reverseRightGPIO():
     clean()
 def clean():
     GPIO.cleanup()
+try:
+with picamera.PiCamera() as camera:
+camera.resolution = (320, 240)
+camera.framerate = 10
+time.sleep(2)
+start = time.time()
+stream = io.BytesIO()
 
-def key_in(event):
-    init()
-    key_press = event.char
-    sleep_time = 0.030
+    for foo in camera.capture_continuous(stream, 'jpeg', use_video_port = True):
+        connection.write(struct.pack('<L', stream.tell()))
+        connection.flush()
+        stream.seek(0)
+        connection.write(stream.read())
+        if time.time() - start > 600:
+            break
+        stream.seek(0)
+        stream.truncate()
+connection.write(struct.pack('<L', 0))
+a = client_socket.recv(1024)
+if a == 'w':
+    forwardGPIO()
+elif a == 'a':
+    leftGPIO()
+elif a == 's':
+    reverseGPIO()
+elif a == 'd':
+    rightGPIO()
+else:
+    pass
 
-    if key_press.lower() == 'w':
-        forwardGPIO()
-    elif key_press.lower() == 'a':
-        leftGPIO()
-    elif key_press.lower() == 's':
-        reverseGPIO()
-    elif key_press.lower() == 'd':
-        rightGPIO()
-    elif key_press.lower() == 'w' && 'a':
-        forwardLeftGPIO()
-    elif key_press.lower() == 'w' && 'd':
-        forwardRightGPIo()
-    elif key_press.lower() == 's' && 'a':
-        reverseLeftGPIO()
-    elif key_press.lower() == 's' && 'd':
-        reverseRightGPIO()
-    else:
-        clean()
-
-command = tk.Tk()
-command.bind('<KeyPress>', key_input)
-command.mainloop()
+finally:
+connection.close()
+client_socket.close()
