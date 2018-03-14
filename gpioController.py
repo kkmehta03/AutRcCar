@@ -50,35 +50,35 @@ def reverseRightGPIO():
 def clean():
     GPIO.cleanup()
 try:
-with picamera.PiCamera() as camera:
-     camera.resolution = (320, 240)
-     camera.framerate = 10
-     time.sleep(2)
-     start = time.time()
-     stream = io.BytesIO()
+    with picamera.PiCamera() as camera:
+         camera.resolution = (320, 240)
+         camera.framerate = 10
+         time.sleep(2)
+         start = time.time()
+         stream = io.BytesIO()
 
-     for foo in camera.capture_continuous(stream, 'jpeg', use_video_port = True):
-            connection.write(struct.pack('<L', stream.tell()))
-            connection.flush()
-            stream.seek(0)
-            connection.write(stream.read())
-            if time.time() - start > 600:
-                break
-            stream.seek(0)
-            stream.truncate()
-            connection.write(struct.pack('<L', 0))
-            a = client_socket.recv(1024)
-            if a == 'w':
-                forwardGPIO()
-            elif a == 'a':
-                leftGPIO()
-            elif a == 's':
-                reverseGPIO()
-            elif a == 'd':
-                rightGPIO()
-            else:
-                pass
+         for foo in camera.capture_continuous(stream, 'jpeg', use_video_port = True):
+                connection.write(struct.pack('<L', stream.tell()))
+                connection.flush()
+                stream.seek(0)
+                connection.write(stream.read())
+                if time.time() - start > 600:
+                    break
+                stream.seek(0)
+                stream.truncate()
+                connection.write(struct.pack('<L', 0))
+                a = client_socket.recv(1024)
+                if a == 'w':
+                    forwardGPIO()
+                elif a == 'a':
+                    leftGPIO()
+                elif a == 's':
+                    reverseGPIO()
+                elif a == 'd':
+                    rightGPIO()
+                else:
+                    pass
 
-finally:
-    connection.close()
-    client_socket.close()
+    finally:
+        connection.close()
+        client_socket.close()
