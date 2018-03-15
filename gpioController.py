@@ -1,13 +1,13 @@
-import RPi.GPIO as GPIO
-import io
 import socket
-import struct
-import time
+import RPi.GPIO as GPIO
+import sys
 import picamera
+import time
+import io
 
-client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_socket.connect(('192.168.1.2', 8000))
-connection = client_socket.makefile('wb')
+cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+cs.connect(('192.168.1.3',8000))
+connection = cs.makefile('wb')
 
 def init():
     GPIO.setmode(GPIO.BOARD)
@@ -49,36 +49,60 @@ def reverseRightGPIO():
     clean()
 def clean():
     GPIO.cleanup()
+
+#def key_in(event):
+    init()
+    key_press = event.char
+    sleep_time = 0.030
+
+    if key_press.lower() == 'w':
+        forwardGPIO()
+    elif key_press.lower() == 'a':
+        leftGPIO()
+    elif key_press.lower() == 's':
+        reverseGPIO()
+    elif key_press.lower() == 'd':
+        rightGPIO()
+    elif key_press.lower() == 'w' && 'a':
+        forwardLeftGPIO()
+    elif key_press.lower() == 'w' && 'd':
+        forwardRightGPIo()
+    elif key_press.lower() == 's' && 'a':
+        reverseLeftGPIO()
+    elif key_press.lower() == 's' && 'd':
+        reverseRightGPIO()
+    else:
+        clean()
 try:
-    with picamera.PiCamera() as camera:
-         camera.resolution = (320, 240)
-         camera.framerate = 10
-         time.sleep(2)
-         start = time.time()
-         stream = io.BytesIO()
+    init()
+    with picamera.PiCamera() as cam:
+        cam.resolution = (320,240)
+        cam.framerate = 10
+        time.sleep(2)
+        start = time.time()
+        stream = io.BytesIO()
 
-         for foo in camera.capture_continuous(stream, 'jpeg', use_video_port = True):
-                connection.write(struct.pack('<L', stream.tell()))
-                connection.flush()
-                stream.seek(0)
-                connection.write(stream.read())
-                if time.time() - start > 600:
-                    break
-                stream.seek(0)
-                stream.truncate()
-                connection.write(struct.pack('<L', 0))
-                a = client_socket.recv(1024)
-                if a == 'w':
-                    forwardGPIO()
-                elif a == 'a':
-                    leftGPIO()
-                elif a == 's':
-                    reverseGPIO()
-                elif a == 'd':
-                    rightGPIO()
-                else:
-                    pass
-
-    finally:
-        connection.close()
-        client_socket.close()
+        for foo in camera.capture_continuous(stream,'jpeg',use_video_port =True):
+            connection.write(struct.pack('<L',stream.tell()))
+            connection.flush()
+            stream.seek(0)
+            connection.write(stream.read())
+            if time.time() - start > 600:
+                break
+            stream.seek(0)
+            stream.truncate()
+    connection.write(struct.pack('<L',0))
+    direction = cs.recv(1024).decode()
+    if direction == 'w':
+        forwardGPIO()
+    elif direction == 'a':
+        leftGPIO()
+    elif direction == 's':
+        reverseGPIO()
+    elif direction == 'd':
+        rightGPIO()
+    else:
+        clean()
+finally:
+    connection.close()
+    cs.close()
