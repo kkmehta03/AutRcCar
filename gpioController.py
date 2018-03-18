@@ -22,6 +22,47 @@ class SendTrainingData(object):
         self.GPIO.setup(05, GPIO.OUT) #back motor pin
         self.GPIO.setup(07, GPIO.OUT) #left pin
         self.GPIO.setup(11, GPIO.OUT) #right pin
+    
+    def forwardGPIO(self):
+        self.GPIO.output(03,True)
+        self.GPIO.output(05,False)
+        self.clean()
+    
+    def reverseGPIO(self):
+        self.GPIO.output(03,False)
+        self.GPIO.output(05,True)
+        self.clean()
+    
+    def rightGPIO(self):
+        self.GPIO.output(07,False)
+        self.GPIO.output(11,True)
+        self.clean()
+    
+    def leftGPIO(self):
+        self.GPIO.output(07,True)
+        self.GPIO.output(11,False)
+        self.clean()
+    
+    def clean(self):
+        self.GPIO.cleanup()
+    
+    def receive_command(self):
+        try:
+            for c in con:
+                direction = self.c.read(1024).decode()
+                if direction == 'w':
+                    self.forwardGPIO()
+                elif direction == 'a':
+                    self.leftGPIO()
+                elif direction == 's':
+                    self.reverseGPIO()
+                elif direction == 'd':
+                    self.rightGPIO()
+                elif direction == 'q':
+                    break
+                else:
+                    pass
+
     def send_image(self):
         try:
             with picamera.PiCamera() as cam:
@@ -41,40 +82,7 @@ class SendTrainingData(object):
                     stream.seek(0)
                     stream.truncate()
             self.connection.write(struct.pack('<L',0))
-    def receive_command(self):
-        try:
-            for c in con:
-                direction = self.c.read(1024).decode()
-                if direction == 'w':
-                    self.forwardGPIO()
-                elif direction == 'a':
-                    self.leftGPIO()
-                elif direction == 's':
-                    self.reverseGPIO()
-                elif direction == 'd':
-                    self.rightGPIO()
-                elif direction == 'q':
-                    break
-                else:
-                    pass
-    def forwardGPIO(self):
-        self.GPIO.output(03,True)
-        self.GPIO.output(05,False)
-        self.clean()
-    def reverseGPIO(self):
-        self.GPIO.output(03,False)
-        self.GPIO.output(05,True)
-        self.clean()
-    def rightGPIO(self):
-        self.GPIO.output(07,False)
-        self.GPIO.output(11,True)
-        self.clean()
-    def leftGPIO(self):
-        self.GPIO.output(07,True)
-        self.GPIO.output(11,False)
-        self.clean()
-    def clean(self):
-        self.GPIO.cleanup()
+    
     finally:
         self.connection.close()
         self.con.close()
