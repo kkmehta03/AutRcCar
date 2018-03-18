@@ -4,6 +4,7 @@ import sys
 import picamera
 import time
 import io
+import struct
 
 cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 cs.connect(('192.168.1.3',8000))
@@ -44,7 +45,7 @@ try:
         start = time.time()
         stream = io.BytesIO()
 
-        for foo in camera.capture_continuous(stream,'jpeg',use_video_port=True):
+        for foo in cam.capture_continuous(stream,'jpeg',use_video_port=True):
             connection.write(struct.pack('<L',stream.tell()))
             connection.flush()
             stream.seek(0)
@@ -54,7 +55,7 @@ try:
             stream.seek(0)
             stream.truncate()
     connection.write(struct.pack('<L',0))
-    with con as c:
+    for c in con:
         direction = c.read(1024).decode()
         if direction == 'w':
             forwardGPIO()
