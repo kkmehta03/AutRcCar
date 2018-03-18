@@ -24,7 +24,6 @@ class SendTrainingData(object):
         self.GPIO.setup(11, GPIO.OUT) #right pin
     def send_image(self):
         try:
-            init()
             with picamera.PiCamera() as cam:
                 cam.resolution = (320,240)
                 cam.framerate = 10
@@ -33,15 +32,15 @@ class SendTrainingData(object):
                 stream = io.BytesIO()
 
                 for foo in cam.capture_continuous(stream,'jpeg',use_video_port=True):
-                    connection.write(struct.pack('<L',stream.tell()))
-                    connection.flush()
+                    self.connection.write(struct.pack('<L',stream.tell()))
+                    self.connection.flush()
                     stream.seek(0)
-                    connection.write(stream.read())
+                    self.connection.write(stream.read())
                     if time.time() - start > 600:
                         break
                     stream.seek(0)
                     stream.truncate()
-            connection.write(struct.pack('<L',0))
+            self.connection.write(struct.pack('<L',0))
     def receive_command(self):
         try:
             for c in con:
