@@ -12,38 +12,38 @@ class SendTrainingData(object):
         self.cs.connect(('192.168.1.3',8000))
         self.connection = self.cs.makefile('wb')
         self.con = self.cs.makefile('rb')
-        self.controllerInit()
-        self.send_image()
-        self.receive_command()
+        controllerInit()
+        send_image()
+        receive_command()
 
-    def ControllerInit(self):
+    def ControllerInit():
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(03, GPIO.OUT) #back motor pin
         GPIO.setup(05, GPIO.OUT) #back motor pin
         GPIO.setup(07, GPIO.OUT) #left pin
         GPIO.setup(11, GPIO.OUT) #right pin
 
-    def forwardGPIO(self):
+    def forwardGPIO():
         GPIO.output(03,True)
         GPIO.output(05,False)
         self.clean()
 
-    def reverseGPIO(self):
+    def reverseGPIO():
         GPIO.output(03,False)
         GPIO.output(05,True)
         self.clean()
 
-    def rightGPIO(self):
+    def rightGPIO():
         GPIO.output(07,False)
         GPIO.output(11,True)
         self.clean()
 
-    def leftGPIO(self):
+    def leftGPIO():
         GPIO.output(07,True)
         GPIO.output(11,False)
         self.clean()
 
-    def clean(self):
+    def clean():
         GPIO.cleanup()
 
     def receive_command():
@@ -71,7 +71,6 @@ class SendTrainingData(object):
                 stream = io.BytesIO()
 
                 for foo in cam.capture_continuous(stream,'jpeg',use_video_port=True):
-                    receive_command()
                     self.connection.write(struct.pack('<L',stream.tell()))
                     self.connection.flush()
                     stream.seek(0)
