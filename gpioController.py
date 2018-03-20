@@ -29,17 +29,3 @@ def leftGPIO():
 def clean():
     GPIO.cleanup()
     
-def receive_command():
-    direction = self.c.read(1024).decode()
-    if direction == 'w':
-        forwardGPIO()
-    elif direction == 'a':
-        leftGPIO()
-    elif direction == 's':
-        reverseGPIO()
-    elif direction == 'd':
-        rightGPIO()
-    elif direction == 'q':
-        exit
-    else:
-        pass
