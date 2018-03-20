@@ -1,5 +1,4 @@
 import socket
-import RPi.GPIO as GPIO
 import sys
 import picamera
 import time
@@ -13,7 +12,7 @@ class SendTrainingData(object):
         self.cs.connect(('192.168.1.3',8000))
         self.connection = self.cs.makefile('wb')
         self.con = self.cs.makefile('rb')
-        g.controllerInit()
+        g.ControllerInit()
         g.receive_command()
         g.send_image()
 
@@ -21,13 +20,13 @@ class SendTrainingData(object):
     def receive_command():
         direction = self.c.read(1024).decode()
         if direction == 'w':
-            self.forwardGPIO()
+            g.forwardGPIO()
         elif direction == 'a':
-            self.leftGPIO()
+            g.leftGPIO()
         elif direction == 's':
-            self.reverseGPIO()
+            g.reverseGPIO()
         elif direction == 'd':
-            self.rightGPIO()
+            g.rightGPIO()
         elif direction == 'q':
             exit
         else:
