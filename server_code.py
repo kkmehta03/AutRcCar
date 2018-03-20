@@ -13,7 +13,6 @@ class SendTrainingData(object):
         self.connection = self.cs.makefile('wb')
         self.con = self.cs.makefile('rb')
         g.ControllerInit()
-        self.receive_command()
         self.send_image()
     
     def receive_command(self):
@@ -42,7 +41,7 @@ class SendTrainingData(object):
                 stream = io.BytesIO()
 
                 for foo in cam.capture_continuous(stream,'jpeg',use_video_port=True):
-                    receive_command()
+                    self.receive_command()
                     self.connection.write(struct.pack('<L',stream.tell()))
                     self.connection.flush()
                     stream.seek(0)
