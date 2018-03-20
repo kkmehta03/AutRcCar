@@ -13,19 +13,19 @@ class SendTrainingData(object):
         self.connection = self.cs.makefile('wb')
         self.con = self.cs.makefile('rb')
         g.ControllerInit()
-        receive_command()
-        send_image()
+        self.receive_command()
+        self.send_image()
     
-    def receive_command():
-        direction = self.c.read(1024).decode()
+    def receive_command(self):
+        direction = self.con.read(1024).decode()
         if direction == 'w':
-            forwardGPIO()
+            g.forwardGPIO()
         elif direction == 'a':
-            leftGPIO()
+            g.leftGPIO()
         elif direction == 's':
-            reverseGPIO()
+            g.reverseGPIO()
         elif direction == 'd':
-            rightGPIO()
+            g.rightGPIO()
         elif direction == 'q':
             exit
         else:
