@@ -16,19 +16,22 @@ class SendTrainingData(object):
         self.send_image()
     
     def receive_command(self):
-        direction = self.con.read(1024).decode()
-        if direction == 'w':
-            g.forwardGPIO()
-        elif direction == 'a':
-            g.leftGPIO()
-        elif direction == 's':
-            g.reverseGPIO()
-        elif direction == 'd':
-            g.rightGPIO()
-        elif direction == 'q':
-            exit
-        else:
-            pass
+        try:
+            direction = self.con.read(1024).decode()
+            if direction == 'w':
+                g.forwardGPIO()
+            elif direction == 'a':
+                g.leftGPIO()
+            elif direction == 's':
+                g.reverseGPIO()
+            elif direction == 'd':
+                g.rightGPIO()
+            elif direction == 'q':
+                exit
+            else:
+                pass
+        finally:
+            self.con.close()
 
     
     def send_image(self):
@@ -54,7 +57,7 @@ class SendTrainingData(object):
 
         finally:
             self.connection.close()
-            self.con.close()
+            #self.con.close()
             self.cs.close()
 if __name__ == '__main__':
     SendTrainingData()
