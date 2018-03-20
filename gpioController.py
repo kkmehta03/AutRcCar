@@ -15,53 +15,51 @@ class SendTrainingData(object):
         self.controllerInit()
         self.send_image()
         self.receive_command()
-        
+
     def ControllerInit(self):
-        self.GPIO.setmode(GPIO.BOARD)
-        self.GPIO.setup(03, GPIO.OUT) #back motor pin
-        self.GPIO.setup(05, GPIO.OUT) #back motor pin
-        self.GPIO.setup(07, GPIO.OUT) #left pin
-        self.GPIO.setup(11, GPIO.OUT) #right pin
-    
+        GPIO.setmode(GPIO.BOARD)
+        GPIO.setup(03, GPIO.OUT) #back motor pin
+        GPIO.setup(05, GPIO.OUT) #back motor pin
+        GPIO.setup(07, GPIO.OUT) #left pin
+        GPIO.setup(11, GPIO.OUT) #right pin
+
     def forwardGPIO(self):
-        self.GPIO.output(03,True)
-        self.GPIO.output(05,False)
+        GPIO.output(03,True)
+        GPIO.output(05,False)
         self.clean()
-    
+
     def reverseGPIO(self):
-        self.GPIO.output(03,False)
-        self.GPIO.output(05,True)
+        GPIO.output(03,False)
+        GPIO.output(05,True)
         self.clean()
-    
+
     def rightGPIO(self):
-        self.GPIO.output(07,False)
-        self.GPIO.output(11,True)
+        GPIO.output(07,False)
+        GPIO.output(11,True)
         self.clean()
-    
+
     def leftGPIO(self):
-        self.GPIO.output(07,True)
-        self.GPIO.output(11,False)
+        GPIO.output(07,True)
+        GPIO.output(11,False)
         self.clean()
-    
+
     def clean(self):
-        self.GPIO.cleanup()
-    
-    def receive_command(self):
-        try:
-            for c in con:
-                direction = self.c.read(1024).decode()
-                if direction == 'w':
-                    self.forwardGPIO()
-                elif direction == 'a':
-                    self.leftGPIO()
-                elif direction == 's':
-                    self.reverseGPIO()
-                elif direction == 'd':
-                    self.rightGPIO()
-                elif direction == 'q':
-                    break
-                else:
-                    pass
+        GPIO.cleanup()
+
+    def receive_command():
+        direction = self.c.read(1024).decode()
+        if direction == 'w':
+            self.forwardGPIO()
+        elif direction == 'a':
+            self.leftGPIO()
+        elif direction == 's':
+            self.reverseGPIO()
+        elif direction == 'd':
+            self.rightGPIO()
+        elif direction == 'q':
+            exit
+        else:
+            pass
 
     def send_image(self):
         try:
@@ -73,6 +71,7 @@ class SendTrainingData(object):
                 stream = io.BytesIO()
 
                 for foo in cam.capture_continuous(stream,'jpeg',use_video_port=True):
+                    receive_command()
                     self.connection.write(struct.pack('<L',stream.tell()))
                     self.connection.flush()
                     stream.seek(0)
@@ -82,10 +81,10 @@ class SendTrainingData(object):
                     stream.seek(0)
                     stream.truncate()
             self.connection.write(struct.pack('<L',0))
-    
-    finally:
-        self.connection.close()
-        self.con.close()
-        self.cs.close()
+
+        finally:
+            self.connection.close()
+            self.con.close()
+            self.cs.close()
 if __name__ == '__main__':
-    sendTrainingData()
+    SendTrainingData()
