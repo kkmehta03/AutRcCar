@@ -13,9 +13,25 @@ class SendTrainingData(object):
         self.connection = self.cs.makefile('wb')
         self.con = self.cs.makefile('rb')
         g.ControllerInit()
-        g.receive_command()
+        receive_command()
         send_image()
-       
+    
+    def receive_command():
+        direction = self.c.read(1024).decode()
+        if direction == 'w':
+            forwardGPIO()
+        elif direction == 'a':
+            leftGPIO()
+        elif direction == 's':
+            reverseGPIO()
+        elif direction == 'd':
+            rightGPIO()
+        elif direction == 'q':
+            exit
+        else:
+            pass
+
+    
     def send_image(self):
         try:
             with picamera.PiCamera() as cam:
