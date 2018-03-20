@@ -1,3 +1,4 @@
+import RPi.GPIO as GPIO
 def ControllerInit():
     GPIO.setmode(GPIO.BOARD)
     GPIO.setup(03, GPIO.OUT) #back motor pin
