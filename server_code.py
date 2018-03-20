@@ -4,20 +4,23 @@ import picamera
 import time
 import io
 import struct
+import sys
 import gpioController as g
 
 class SendTrainingData(object):
     def __init__(self):
         self.cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.cs.connect(('192.168.1.3',8000))
-        self.connection = self.cs.makefile('wb')
-        self.con = self.cs.makefile('rb')
+        #self.connection = self.cs.makefile('wb')
+        #self.con = self.cs.makefile('rb')
         g.ControllerInit()
         self.send_image()
     
     def receive_command(self):
-        try:
-            direction = self.con.read(1024).decode()
+        while True:
+            direction = self.cs.recv(1024).decode()
+            if not direction:
+                sys.exit(0)
             if direction == 'w':
                 g.forwardGPIO()
             elif direction == 'a':
@@ -27,13 +30,10 @@ class SendTrainingData(object):
             elif direction == 'd':
                 g.rightGPIO()
             elif direction == 'q':
-                exit
+                sys.exit(0)
             else:
                 pass
-        finally:
-            self.con.close()
-
-    
+    thread(target=recv).start()
     def send_image(self):
         try:
             with picamera.PiCamera() as cam:
@@ -45,18 +45,18 @@ class SendTrainingData(object):
 
                 for foo in cam.capture_continuous(stream,'jpeg',use_video_port=True):
                     self.receive_command()
-                    self.connection.write(struct.pack('<L',stream.tell()))
-                    self.connection.flush()
+                    self.cs.sendall(struct.pack('<L',stream.tell()))
+                    #self.connection.flush()
                     stream.seek(0)
-                    self.connection.write(stream.read())
+                    self.cs.sendall(stream.read())
                     if time.time() - start > 600:
                         break
                     stream.seek(0)
                     stream.truncate()
-            self.connection.write(struct.pack('<L',0))
+            self.cs.sendall(struct.pack('<L',0))
 
         finally:
-            self.connection.close()
+            #self.connection.close()
             #self.con.close()
             self.cs.close()
 if __name__ == '__main__':
