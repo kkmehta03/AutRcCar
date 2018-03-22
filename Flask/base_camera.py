@@ -1,6 +1,7 @@
 """
 credits: Miguel Grinberg - flask video streaming.
 Github: github.com/miguelgrinberg/flask-video-streaming
+"""
 
 import time
 import threading
