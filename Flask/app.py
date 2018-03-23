@@ -8,7 +8,7 @@ if os.environ.get('CAMERA'):
 else:
     from camera_pi import Camera
 
-app = Flask(__name__)
+app = Flask(__name__,template_folder='Templates')
 
 @app.route('/')
 def index():
