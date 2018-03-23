@@ -7,22 +7,18 @@ def ControllerInit():
     GPIO.setup(11, GPIO.OUT) #right pin
 
 def forwardGPIO():
-    ControllerInit()
     GPIO.output(03,True)
     GPIO.output(05,False)
     
 def reverseGPIO():
-    ControllerInit()
     GPIO.output(03,False)
     GPIO.output(05,True)
     
 def rightGPIO():
-    ControllerInit()
     GPIO.output(07,False)
     GPIO.output(11,True)
     
 def leftGPIO():
-    ControllerInit()
     GPIO.output(07,True)
     GPIO.output(11,False)
 def stopGPIO():
@@ -33,5 +29,5 @@ def stopGPIO():
     
 def clean():
     GPIO.cleanup()
-clean()
+ControllerInit()
 
