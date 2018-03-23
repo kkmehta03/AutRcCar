@@ -6,13 +6,9 @@ from flask import Flask, render_template, Response
 if os.environ.get('CAMERA'):
     Camera = import_module('camera_' + os.environ['CAMERA']).Camera
 else:
-    from camera import Camera
-
-# Raspberry Pi camera module (requires picamera package)
-# from camera_pi import Camera
+    from camera_pi import Camera
 
 app = Flask(__name__)
-
 
 @app.route('/')
 def index():
@@ -20,10 +16,10 @@ def index():
     return render_template('index.html')
 
 
-def gen(camera):
+def gen(Camera):
     """Video streaming generator function."""
     while True:
-        frame = camera.get_frame()
+        frame = Camera.get_frame()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
