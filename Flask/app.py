@@ -43,6 +43,7 @@ def reroute(changepin):
         g.reverseGPIO()
     else:
         g.stopGPIO()
+        g.clean()
     response = make_response(redirect(url_for('index')))
     return(response)
 
