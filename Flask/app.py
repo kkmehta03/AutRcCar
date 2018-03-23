@@ -29,7 +29,22 @@ def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
     return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
-
+@app.route('/<changepin>', methods=['POST'])
+def reroute(changepin):
+    changePin = int(changepin)
+    
+    if changePin == 1:
+        g.leftGPIO()
+    elif changePin == 2:
+        g.forwardGPIO()
+    elif changePin == 3:
+        g.rightGPIO()
+    elif changePin == 4:
+        g.reverseGPIO()
+    else:
+        g.stopGPIO()
+    response = make_response(redirect(url_for('index')))
+    return(response)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', threaded=True)
+    app.run(host='0.0.0.0', threaded=True, debug=True)
