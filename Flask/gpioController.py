@@ -20,6 +20,11 @@ def rightGPIO():
 def leftGPIO():
     GPIO.output(07,True)
     GPIO.output(11,False)
+def stopGPIO():
+    GPIO.output(03,True)
+    GPIO.output(05,True)
+    GPIO.output(07,True)
+    GPIO.output(11,True)
     
 def clean():
     GPIO.cleanup()
