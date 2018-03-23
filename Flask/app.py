@@ -1,6 +1,6 @@
 from importlib import import_module
 import os
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response, make_response
 import gpioController as g
 
 # import camera driver
