@@ -6,13 +6,14 @@ from pygame.locals import *
 import socket
 import time
 import os
+from urllib import request
 
 class CollectTrainingData(object):
 
     def __init__(self):
 
         self.server_socket = socket.socket()
-        self.server_socket.bind(('192.168.1.3', 8000))
+        self.server_socket.bind(('192.168.1.4', 5000))
         self.server_socket.listen(0)
 
         # accept a single connection
@@ -81,14 +82,18 @@ class CollectTrainingData(object):
                                 image_array = np.vstack((image_array, temp_array))
                                 print(image_array)
                                 label_array = np.vstack((label_array, self.k[2]))
-                                self.client_address.sendall(b'w')
-
+                                #self.client_address.sendall(b'w')
+                                urllib.request.urlopen('http://192.168.1.6:5000/2')                               
+                                
+                               
                             elif key_input[pygame.K_s]:
                                 print("Reverse")
                                 saved_frame += 1
                                 image_array = np.vstack((image_array, temp_array))
                                 label_array = np.vstack((label_array, self.k[3]))
-                                self.client_address.sendall(b's')
+                                #self.client_address.sendall(b's')
+                                urllib.request.urlopen('http://192.168.1.6:5000/
+       
 
                             elif key_input[pygame.K_d]:
                                 print("Right")
