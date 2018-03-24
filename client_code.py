@@ -6,7 +6,7 @@ from pygame.locals import *
 import socket
 import time
 import os
-from urllib import request
+import urllib
 
 class CollectTrainingData(object):
 
@@ -54,7 +54,7 @@ class CollectTrainingData(object):
                 if first != -1 and last != -1:
                     jpg = stream_bytes[first:last + 2]
                     stream_bytes = stream_bytes[last + 2:]
-                    image = cv2.imdecode(np.fromstring(jpg, dtype=np.uint8), cv2.CV_LOAD_IMAGE_GRAYSCALE)
+                    image = cv2.imdecode(np.fromstring(jpg, dtype=np.uint8), cv2.IMREAD_GRAYSCALE)
 
                     # select lower half of the image
                     roi = image[120:240, :]
@@ -92,7 +92,7 @@ class CollectTrainingData(object):
                                 image_array = np.vstack((image_array, temp_array))
                                 label_array = np.vstack((label_array, self.k[3]))
                                 #self.client_address.sendall(b's')
-                                urllib.request.urlopen('http://192.168.1.6:5000/
+                                urllib.request.urlopen('http://192.168.1.6:5000/4')
        
 
                             elif key_input[pygame.K_d]:
@@ -100,14 +100,17 @@ class CollectTrainingData(object):
                                 image_array = np.vstack((image_array, temp_array))
                                 label_array = np.vstack((label_array, self.k[1]))
                                 saved_frame += 1
-                                self.client_address.sendall(b'd')
+                                #self.client_address.sendall(b'd')
+                                urllib.request.urlopen('http://192.168.1.6:5000/3')
 
                             elif key_input[pygame.K_a]:
                                 print("Left")
                                 image_array = np.vstack((image_array, temp_array))
                                 label_array = np.vstack((label_array, self.k[0]))
                                 saved_frame += 1
-                                self.client_address.sendall(b'a')
+                                #self.client_address.sendall(b'a')
+                                urllib.request.urlopen('http://192.168.1.6:5000/1')
+                                
 
                             elif key_input[pygame.K_x] or key_input[pygame.K_q]:
                                 print('exit')
