@@ -33,7 +33,6 @@ class SendTrainingData(object):
                 sys.exit(0)
             else:
                 pass
-    thread(target=recv).start()
     def send_image(self):
         try:
             with picamera.PiCamera() as cam:
