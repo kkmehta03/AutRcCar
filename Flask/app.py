@@ -29,6 +29,7 @@ def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
     return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
+'''
 @app.route('/<changepin>', methods=['POST'])
 def reroute(changepin):
     changePin = int(changepin)
@@ -46,6 +47,27 @@ def reroute(changepin):
         g.clean()
     response = make_response(redirect(url_for('index')))
     return(response)
+'''
+@app.route('/left_side')
+def left_side():
+    g.leftGPIO()
+    return "True"
+@app.route('/right_side')
+def right_side():
+    g.rightGPIO()
+    return "True"
+@app.route('/up_side')
+def up_side():
+    g.forwardGPIO()
+    return "True"
+@app.route('/down_side')
+def down_side():
+    g.reverse()
+    return "True"
+@app.route('/stop')
+def stop():
+    g.stopGPIO()
+    return "True"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', threaded=True, debug=True)
