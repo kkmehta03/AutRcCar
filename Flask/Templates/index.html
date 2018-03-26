@@ -1,48 +1,41 @@
 <html>
-  <head>
-    <title>Raspberry Pi Car</title>
-  </head>
-  <body>
-    <h1>Car Controller</h1>
-    <img src="{{ url_for('video_feed') }}">
-    <table style="width:100%; max-width: 500px; height:300px;">
-			<tr>
-				<td>
-					<form action="/1" method="POST">
-						<input type="image" name="direction" src="/static/img/left.svg" value="left" style="float:left; width:80% ;">
-						</br>
-					</form>
-				</td>
-				<td>
-					<form action="/2" method="POST">
-						<input type="image" name="direction" src="/static/img/forward.svg" value="forward" style="float:left; width:80%;">
-						</br>
-					</form>
-				</td>
-				<td>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+<h1>Car Controller</h1>
+<img src="{{ url_for('video_feed') }}">
+<div style=" height:400px; width:300px; float:right;">
+<center>
+<a href="#" id="up" style="font-size:30px;text-decoration:none;">  &#x1F881;&#x1F881;<br>Forward</a><br><br></center>
+<a href="#" id="left" style="font-size:30px;text-decoration:none;"> &#x1F880;&#x1F880;Left</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#" id="right" style="font-size:30px; text-decoration:none;"> Right &#x1F882;&#x1F882;</a><br><br>
+<center><a href="#" id="down" style="font-size:30px;text-decoration:none;"> Backward<br> &#x1F883;&#x1F883;</a></center>
+</div>
+<script>
+$( document ).ready(function(){
+    $("#down").on("keydown", function() {
+     $.get('/down_side');
+     }).on('keyup', function() {
+     $.get('/stop');
+    });
+    $("#up").on("keydown", function() {
+     $.get('/up_side');
+     }).on('keyup', function() {
+     $.get('/stop');
+    });
+    $("#left").on("keydown", function() {
+     $.get('/left_side');
+     }).on('keyup', function() {
+     $.get('/stop');
+    });
+    $("#right").on("keydown", function() {
+     $.get('/right_side');
+     }).on('keyup', function() {
+     $.get('/stop');
+    });
+});
+</script>
 
-					<form action="/3" method="POST">
-						<input type="image" name="direction" src="/static/img/right.svg" value="right" style="float:left; width:80%;">
-						</br>
-					</form>
-
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<form action="/4" method="POST">
-						<input type="image" name="direction" src="/static/img/reverse.svg" value="reverse" style=" margin-left:80px; width:80%;">
-						</br>
-					</form>
-				</td>
-				<td>
-					<form action="/5" method="POST">
-						<input type="image" name="direction" src="/static/img/stop.svg" value="stop" style="margin-left:80px; width:80%;">
-						</br>
-					</form>
-				</td>
-
-			</tr>
-		</table>
-  </body>
+</body>
 </html>
