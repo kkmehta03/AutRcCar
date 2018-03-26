@@ -14,24 +14,24 @@
 </div>
 <script>
 $( document ).ready(function(){
-    $("#down").on("keydown", function() {
+    $("#down").on("mousedown", function() {
      $.get('/down_side');
-     }).on('keyup', function() {
+     }).on('mouseup', function() {
      $.get('/stop');
     });
-    $("#up").on("keydown", function() {
+    $("#up").on("mousedown", function() {
      $.get('/up_side');
-     }).on('keyup', function() {
+     }).on('mouseup', function() {
      $.get('/stop');
     });
-    $("#left").on("keydown", function() {
+    $("#left").on("mousedown", function() {
      $.get('/left_side');
-     }).on('keyup', function() {
+     }).on('mouseup', function() {
      $.get('/stop');
     });
-    $("#right").on("keydown", function() {
+    $("#right").on("mousedown", function() {
      $.get('/right_side');
-     }).on('keyup', function() {
+     }).on('mouseup', function() {
      $.get('/stop');
     });
 });
