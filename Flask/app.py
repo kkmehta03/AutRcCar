@@ -29,8 +29,8 @@ def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
     return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
-@app.route('/<changepin>', methods=['GET'])
-def control(changepin):
+@app.route('/<changepin>', methods=['POST'])
+def reroute(changepin):
     changePin = int(changepin)
     
     if changePin == 1:
