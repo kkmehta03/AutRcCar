@@ -1,15 +1,15 @@
 import RPi.GPIO as GPIO
 from time import sleep
-def ControllerInit():
-    GPIO.setmode(GPIO.BOARD)
-    GPIO.setup(03, GPIO.OUT) 
-    GPIO.setup(05, GPIO.OUT)     
-    GPIO.setup(07, GPIO.OUT) 
-    GPIO.setup(11, GPIO.OUT) 
-    GPIO.setup(13, GPIO.OUT)
-    GPIO.setup(15, GPIO.OUT)
-    pwm1 = GPIO.PWM(13,100)
-    pwm2 = GPIO.PWM(15,100)
+
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(03, GPIO.OUT) 
+GPIO.setup(05, GPIO.OUT)     
+GPIO.setup(07, GPIO.OUT) 
+GPIO.setup(11, GPIO.OUT) 
+GPIO.setup(13, GPIO.OUT)
+GPIO.setup(15, GPIO.OUT)
+pwm1 = GPIO.PWM(13,100)
+pwm2 = GPIO.PWM(15,100)
 
 def forwardGPIO():
     pwm1.start(0)
@@ -59,5 +59,5 @@ def stopGPIO():
     
 def clean():
     GPIO.cleanup()
-ControllerInit()
+
 
