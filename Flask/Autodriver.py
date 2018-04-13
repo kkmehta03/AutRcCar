@@ -6,7 +6,7 @@ import gpioController as g
 
 model = cv2.ANN_MLP()
 g.stopGPIO()
-layer_size = np.int32([38400,8,4,4,2,4])
+layer_size = np.int32([38400,4,2,8,8,4])
 model.create(layer_size)
 model.load('mlp_xml/mlp.xml')
 
