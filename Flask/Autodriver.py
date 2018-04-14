@@ -3,12 +3,13 @@ import picamera
 import numpy as np
 import cv2
 import gpioController as g
+import io
 
 model = cv2.ANN_MLP()
 g.stopGPIO()
 layer_size = np.int32([38400,4,2,8,8,4])
 model.create(layer_size)
-model.load('mlp_xml/mlp.xml')
+model.load('autrccar/Flask/mlp_xml/mlp.xml')
 
 def predict(samples):
   ret, resp = model.predict(samples)
@@ -23,19 +24,26 @@ def steer(prediction):
     g.rightGPIO()
   else:
     g.stopGPIO()
-  
-
-with picamera.PiCamera() as camera:
-  camera.resolution = (320, 240)
-  camera.framerate = 24
+    
+with picamera.PiCamera() as cam:
+  cam.resolution = (320,240)
+  cam.framerate = 10
+  cam.start_preview()
   time.sleep(2)
-  image = np.empty((240 * 320 * 3,), dtype=np.uint8)
-  camera.capture(image, 'gray')
-  image = image.reshape((240, 320, 3))
   stream = io.BytesIO()
-  for foo in camera.capture_continuous(stream, 'jpeg', use_video_port=True):
-    stream.seek(0)
-    cv2.imshow('image',image)
-    image_array = half_grey.reshape(1,38400).astype(np.float32)
-    prediction = model.predict(image_array)
-    steer(prediction)  
+  for foo in cam.capture_continuous(stream,'jpeg',use_video_port=True):
+    first = stream.find(b'\xff\xd8')
+    last = stream.find(b'\xff\xd9')
+    if first != -1 and last != -1:
+      jpg = stream[first:last +2]
+      stream = stream[last+2]
+      image = cv2.imdecode(np.fromstring(jpg, dtype=np.uint8), cv2.IMREAD_GRAYSCALE)
+      roi = image[120:240,:]
+      cv2.imshow('image',image)
+      image_array = roi.reshape(1,38400).astype(np.float32)
+      prediction = model.predict(image_array)
+      steer(prediction)
+      
+      
+      
+    
