@@ -32,11 +32,9 @@ with picamera.PiCamera() as cam:
   time.sleep(2)
   stream = io.BytesIO()
   for foo in cam.capture_continuous(stream,'jpeg',use_video_port=True):
-    first = stream.find(b'\xff\xd8')
-    last = stream.find(b'\xff\xd9')
-    if first != -1 and last != -1:
-      jpg = stream[first:last +2]
-      stream = stream[last+2]
+      jpg=np.empty((240*320*3),dtype=np.uint8)
+      print(type(jpg))
+      cam.capture(jpg,'bgr')
       image = cv2.imdecode(np.fromstring(jpg, dtype=np.uint8), cv2.IMREAD_GRAYSCALE)
       roi = image[120:240,:]
       cv2.imshow('image',image)
