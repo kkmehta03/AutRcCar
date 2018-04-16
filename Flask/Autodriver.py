@@ -41,3 +41,5 @@ with picamera.PiCamera() as cam:
     print(image_array.shape)
     prediction = predictor(image_array)
     steer(prediction)
+    stream.seek(0)
+    stream.truncate()
