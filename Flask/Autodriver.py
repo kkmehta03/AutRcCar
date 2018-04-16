@@ -6,15 +6,14 @@ import gpioController as g
 import io
 
 model = cv2.ANN_MLP()
-g.stopGPIO()
-layer_size = np.int32([38400,4,2,8,8,4])
+layer_size = ([38400,32,4])
 model.create(layer_size)
-model.load('autrccar/Flask/mlp_xml/mlp.xml')
+model.load('/autrccar/Flask/mlp_xml/mlp.xml')
 
 def predictor(samples):
   ret, resp = model.predict(samples)
-  print(resp.argmax(-1))
-  return resp.argmax(-1)
+  print(ret.argmax(-1))
+  return (ret.argmax(-1))
 
 def steer(prediction):
   if prediction == 2:
@@ -37,4 +36,8 @@ with picamera.PiCamera() as cam:
     gray = cv2.imdecode(np.fromstring(jpg,dtype=np.uint8),cv2.IMREAD_GRAYSCALE)
     roi = gray[120:240, :]
     image_array = roi.reshape(1,38400).astype(np.float32)
-    
+    print(type(image_array))
+    print(image_array.size)
+    print(image_array.shape)
+    prediction = predictor(image_array)
+    steer(prediction)
