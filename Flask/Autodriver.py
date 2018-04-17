@@ -6,12 +6,12 @@ import gpioController as g
 import io
 
 class neuralnet(object):
-  def __init__(self):
-    self.mode = cv2.ANN_MLP()
-  def create(self):
-    layer_size = np.int32([38400,4,2,8,8,4])
-    self.model.create(layer_size)
-    self.model.load('mlp_xml/mlp.xml')
+  def __init__(self,file_path):
+    self.model = cv2.ml.ANN_MLP_load(file_path)
+  #def create(self):
+    #layer_size = np.int32([38400,4,2,8,8,4])
+    #self.model.create(layer_size)
+    #self.model.load('mlp_xml/mlp.xml')
   def predict(self, samples):
     ret, resp = self.model.predict(samples)
     return resp.argmax(-1)
@@ -36,8 +36,7 @@ def steer(prediction):
   else:
     g.stopGPIO()
 
-model = neuralnet()
-model.create()
+model = neuralnet('/autrccar/Flask/mlp.xml')
 with picamera.PiCamera() as cam:
   cam.resolution = (320,240)
   cam.framerate = 10
