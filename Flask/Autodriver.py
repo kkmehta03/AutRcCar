@@ -9,7 +9,7 @@ class neuralnet(object):
   def __init__(self):
     self.mode = cv2.ANN_MLP()
   def create(self):
-    layer_size = np.int32([38400,32,4])
+    layer_size = np.int32([38400,4,2,8,8,4])
     self.model.create(layer_size)
     self.model.load('mlp_xml/mlp.xml')
   def predict(self, samples):
