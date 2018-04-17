@@ -7,7 +7,7 @@ import io
 
 class neuralnet(object):
   def __init__(self):
-    self.mode = cv2.ml.ANN_MLP()
+    self.mode = cv2.ANN_MLP()
   def create(self):
     layer_size = np.int32([38400,32,4])
     self.model.create(layer_size)
