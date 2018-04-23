@@ -30,13 +30,13 @@ class neuralnet(object):
   #return (ret.argmax(-1))
 
 def steer(prediction):
-  if prediction == 2:
+  if prediction == 1:
     print('forward')
     g.forwardGPIO()
   elif prediction == 0:
     print('left')
     g.leftGPIO()
-  elif prediction == 1:
+  elif prediction == 2:
     print('right')
     g.rightGPIO()
   else:
