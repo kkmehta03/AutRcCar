@@ -39,6 +39,8 @@ def steer(prediction):
   elif prediction == 2:
     print('right')
     g.rightGPIO()
+  elif prediction == 3:
+    g.stopGPIO()
   else:
     g.stopGPIO()
 
