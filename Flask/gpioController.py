@@ -24,7 +24,7 @@ def forwardGPIO():
     pwm1.stop()
     pwm2.stop()
 
-def reverseGPIO():
+def reverseGPIO(t):
     pwm1.start(0)
     pwm1.ChangeDutyCycle(100)
     pwm2.start(0)
@@ -33,7 +33,7 @@ def reverseGPIO():
     GPIO.output(5,True)
     GPIO.output(7,False)
     GPIO.output(11,True)
-    sleep(0.8)
+    sleep(t)
     pwm1.stop()
     pwm2.stop()
 
