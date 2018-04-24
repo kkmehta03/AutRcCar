@@ -1,9 +1,12 @@
+__author__ = 'kkm'
+''' the car runs at 35.0375 cm/s'''
 import time
 import picamera
 import numpy as np
 import cv2
 import gpioController as g
 import io
+import us1
 
 class neuralnet(object):
   def __init__(self,filepath):
@@ -30,21 +33,36 @@ class neuralnet(object):
   #return (ret.argmax(-1))
 
 def steer(prediction):
-  if prediction == 1:
+  dist = us1.distance()
+  print(dist)
+  if dist > 3000 and dist < 4000:
+    g.reverseGPIO()
+    g.reverseGPIO()
+  elif prediction == 1 and dist > 40:
     print('forward')
     g.forwardGPIO()
-  elif prediction == 0:
+  elif dist < 40 and prediction == 1:
+    print('too close! going away')
+    g.reverseGPIO(1.6)
+  elif prediction == 0 and dist > 40 :
     print('left')
     g.leftGPIO()
-  elif prediction == 2:
+  elif dist < 40 and prediction == 0:
+    print('nope! going right!')
+    g.reverseGPIO()
+    g.rightGPIO()
+  elif prediction == 2 and dist > 40:
     print('right')
     g.rightGPIO()
-  elif prediction == 3:
-    g.stopGPIO()
+  elif dist < 40 and prediction == 2:
+    print('nope! going left')
+    g.reverseGPIO(1.6)
+    g.leftGPIO()
   else:
+    print('Take care of me please :)')
     g.stopGPIO()
-
-model = neuralnet('mlp.xml')
+    
+model = neuralnet('mlp1.xml')
 with picamera.PiCamera() as cam:
   cam.resolution = (320,240)
   cam.framerate = 10
@@ -55,11 +73,12 @@ with picamera.PiCamera() as cam:
     jpg = stream.read()
     gray = cv2.imdecode(np.fromstring(jpg,dtype=np.uint8),cv2.IMREAD_GRAYSCALE)
     roi = gray[120:240, :]
+    #cv2.imshow('image',roi)
     image_array = roi.reshape(1,38400).astype(np.float32)
     print(image_array)
-    print(type(image_array))
-    print(image_array.size)
-    print(image_array.shape)
+    #print(type(image_array))
+    #print(image_array.size)
+    #print(image_array.shape)
     #prediction = predictor(image_array)
     prediction = model.predict(image_array)
     steer(prediction)
