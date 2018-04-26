@@ -41,7 +41,7 @@ The flask folder contains all the required files to control the pi car from any 
 6. Open up "Opencv_label.ipynb" Python notebook. Hit Shift+Enter to execute the first set of code, which converts all the images into numpy arrays and labels them according to the direction. 
 
 Direction | Labels
--------------------
+----------|--------
 Left      | [1 0 0 0]
 Forward   | [0 1 0 0]
 Right     | [0 0 1 0]
