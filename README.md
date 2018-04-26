@@ -39,10 +39,12 @@ The flask folder contains all the required files to control the pi car from any 
 4. Run "Opencv_vid2.py" - convert video to grayscale images and save it in "TrainingData" folder. (Branch - Edit3 contains all the code to use color images, instead of grayscale.)
 5. Sort out the images of left direction into folder named "left", images of right direction into the folder named "Right" and so on.
 6. Open up "Opencv_label.ipynb" Python notebook. Hit Shift+Enter to execute the first set of code, which converts all the images into numpy arrays and labels them according to the direction. 
-  * left        -  [1 0 0 0].
-  * forward     -  [0 1 0 0].
-  * right       -  [0 0 1 0].
-  * stop/reverse-  [0 0 0 1].
+Direction | Labels
+-------------------
+Left | [1 0 0 0]
+Forward | [0 1 0 0]
+Right | [0 0 1 0]
+Reverse | [0 0 0 1]
 7. After labelling is done, the npz file is saved in the system, in folder called "Training_data_temp".
 8. Load the file name of npz file and hit Shift+Enter for the next set of code to actually train the model. 
 9. Model saved in mlp_xml folder as "mlp.xml".
