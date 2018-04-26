@@ -1,5 +1,5 @@
 # AutRcCar
-This is an autonomous RC car using Raspberry Pi model 3 B.
+This is an autonomous RC car using Raspberry Pi model 3 B+, Motor-driver L293d, Ultrasonic-sensor- HCSR04 and Picamera, along with OpenCV.
 # Components:
 1. Raspberry Pi 3 B,
 2. Pi camera,
@@ -26,11 +26,10 @@ This is an autonomous RC car using Raspberry Pi model 3 B.
 7. Pin8        - 9v Power
 8. pin9        - Pin15
 9. Pin10       - Pin7
-10.Pin11       - Motor3
-11.Pin14       - Motor4
-12.Pin15       - Pin11
-13.Pin16       - Pin2
-
+10. Pin11       - Motor3.
+11. Pin14       - Motor4.
+12. Pin15       - Pin11.
+13. Pin16       - Pin2.
 # Steps to train the car:
 The flask folder contains all the required files to control the pi car from any device (connected to the same network) using a browser, while streaming the camera data.
 1. SSH into your raspberry pi and go to the flask folder.
