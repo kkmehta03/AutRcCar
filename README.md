@@ -20,10 +20,12 @@ left        -  [1 0 0 0]
 forward     -  [0 1 0 0]
 right       -  [0 0 1 0]
 stop/reverse-  [0 0 0 1]
-7. After labelling is done, the npz file is saved in the system.
+7. After labelling is done, the npz file is saved in the system. "csv.py" file can be imported here as well, if one needs to convert npz file to csv.
 8. Load the file name of npz file and hit Shift+Enter for the next set of code to actually train the model. 
 9. Model saved in mlp_xml folder as "mlp.xml".
 # Steps to deploy the model on the pi:
 1. Transfer the saved xml model to the pi.
 2. cd into your directory where this repo is cloned.
 3. Run Python3 Autodriver.py to run the car autonomously.
+
+-----------------------------------------------------------------------------------------------------------------------------
