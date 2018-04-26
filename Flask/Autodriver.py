@@ -17,9 +17,8 @@ class neuralnet(object):
     #self.model.load('mlp_xml/mlp.xml')
   def predict(self, samples):
     ret, resp = self.model.predict(samples)
-    print(ret)
-    print(resp)
-    print(resp.argmax(-1))
+    #print(ret)
+    print('Predicting : ',resp.argmax(-1))
     return resp.argmax(-1)
 
 #model = cv2.ANN_MLP()
@@ -35,29 +34,37 @@ class neuralnet(object):
 def steer(prediction):
   dist = us1.distance()
   print(dist)
-  if dist > 3000 and dist < 4000:
-    g.reverseGPIO()
-    g.reverseGPIO()
+  
   elif prediction == 1 and dist > 40:
     print('forward')
     g.forwardGPIO()
+    
   elif dist < 40 and prediction == 1:
     print('too close! going away')
     g.reverseGPIO(1.6)
+    time.sleep(0.1)
+    g.leftGPIO()
+  
   elif prediction == 0 and dist > 40 :
     print('left')
     g.leftGPIO()
+  
   elif dist < 40 and prediction == 0:
     print('nope! going right!')
-    g.reverseGPIO()
+    g.reverseGPIO(1.6)
+    time.sleep(0.1)
     g.rightGPIO()
+  
   elif prediction == 2 and dist > 40:
     print('right')
     g.rightGPIO()
+  
   elif dist < 40 and prediction == 2:
     print('nope! going left')
     g.reverseGPIO(1.6)
+    time.sleep(0.1)
     g.leftGPIO()
+  
   else:
     print('Take care of me please :)')
     g.stopGPIO()
@@ -71,10 +78,10 @@ with picamera.PiCamera() as cam:
   for foo in cam.capture_continuous(stream,'jpeg',use_video_port=True):
     stream.seek(0)
     jpg = stream.read()
-    gray = cv2.imdecode(np.fromstring(jpg,dtype=np.uint8),cv2.IMREAD_GRAYSCALE)
-    roi = gray[120:240, :]
+    image = cv2.imdecode(np.fromstring(jpg,dtype=np.uint8),cv2.IMREAD_COLOR)
+    #roi = gray[120:240, :]
     #cv2.imshow('image',roi)
-    image_array = roi.reshape(1,38400).astype(np.float32)
+    image_array = image.reshape(1,115200).astype(np.float32)
     print(image_array)
     #print(type(image_array))
     #print(image_array.size)
