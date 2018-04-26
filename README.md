@@ -7,6 +7,8 @@ This is an autonomous RC car using Raspberry Pi model 3 B.
 4. Old RC car or 2 DC motors and wheels,
 5. 9V battery for the motors,
 6. Power Bank for the raspberry pi.
+# Hardware :
+
 
 # Steps to train the car:
 The flask folder contains all the required files to control the pi car from any device (connected to the same network) using a browser, while streaming the camera data.
