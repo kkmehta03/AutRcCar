@@ -31,6 +31,8 @@ Pin11       | Motor3.
 Pin14       | Motor4.
 Pin15       | Pin11.
 Pin16       | Pin2.
+
+---------------------------------------------------------------------------------------------------------------------------------------
 # Software :
 ## Steps to train the car:
 The flask folder contains all the required files to control the pi car from any device (connected to the same network) using a browser, while streaming the camera data.
