@@ -4,19 +4,19 @@ from flask import Flask, render_template, Response, make_response, url_for, redi
 import gpioController as g
 
 # import camera driver
-if os.environ.get('CAMERA'):
+'''if os.environ.get('CAMERA'):
     Camera = import_module('camera_' + os.environ['CAMERA']).Camera
 else:
     from camera_pi import Camera
-
+'''
 app = Flask(__name__,template_folder='Templates')
 
 @app.route('/')
 def index():
-    """Video streaming home page."""
+    """Raspberry Pi Controller"""
     return render_template('index.html')
 
-
+'''
 def gen(Camera):
     """Video streaming generator function."""
     while True:
@@ -29,6 +29,7 @@ def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
     return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
+                    '''
 @app.route('/<changepin>', methods=['POST'])
 def reroute(changepin):
     changePin = int(changepin)
