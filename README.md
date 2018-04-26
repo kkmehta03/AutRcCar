@@ -10,26 +10,26 @@ This is an autonomous RC car using Raspberry Pi model 3 B.
 # Hardware :
 ![alt text](https://github.com/KhyatiMehta3/AutRcCar/blob/edit3/Flask/Connections.png)
 
-Red - Power-Positive.
-Black - Ground.
-Blue & Purple - Connections from l293d to Raspberry Pi.
-Ochre - Connections HC SR-04 Ultrasonic Sensor to Raspberry pi.
-Orange - Connections to the motors.
+1. Red - Power-Positive.
+2. Black - Ground.
+3. Blue & Purple - Connections from l293d to Raspberry Pi.
+4. Ochre - Connections HC SR-04 Ultrasonic Sensor to Raspberry pi.
+5. Orange - Connections to the motors.
 ## Description of Connections :
 ### L293d       - Raspberry Pi 3B+:
-Pin1        - Pin13
-Pin2        - Pin3
-Pin3        - Motor1
-Pin4,5,12,13- Pin9
-Pin6        - Motor2
-Pin7        - Pin5
-Pin8        - 9v Power
-pin9        - Pin15
-Pin10       - Pin7
-Pin11       - Motor3
-Pin14       - Motor4
-Pin15       - Pin11
-Pin16       - Pin2
+1. Pin1        - Pin13
+2. Pin2        - Pin3
+3. Pin3        - Motor1
+4. Pin4,5,12,13- Pin9
+5. Pin6        - Motor2
+6. Pin7        - Pin5
+7. Pin8        - 9v Power
+8. pin9        - Pin15
+9. Pin10       - Pin7
+10.Pin11       - Motor3
+11.Pin14       - Motor4
+12.Pin15       - Pin11
+13.Pin16       - Pin2
 
 # Steps to train the car:
 The flask folder contains all the required files to control the pi car from any device (connected to the same network) using a browser, while streaming the camera data.
