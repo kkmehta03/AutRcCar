@@ -50,7 +50,7 @@ Forward   | [0 1 0 0]
 Right     | [0 0 1 0]
 Reverse   | [0 0 0 1]
 
-7. After labelling is done, the npz file is saved in the system, in folder called "Training_data_temp".
+7. After labelling is done, the npz file is saved in the system, in folder called "Training_data_temp". The npz file can also be converted to csv file, using "csv.py".
 8. Load the file name of npz file and hit Shift+Enter for the next set of code to actually train the model. 
 9. Model saved in mlp_xml folder as "mlp.xml".
 ## Steps to deploy the model on the pi:
