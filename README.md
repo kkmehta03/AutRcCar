@@ -8,7 +8,7 @@ This is an autonomous RC car using Raspberry Pi model 3 B+, Motor-driver L293d, 
 5. 9V battery for the motors,
 6. Power Bank for the raspberry pi.
 # Hardware :
-![alt text](https://github.com/KhyatiMehta3/AutRcCar/blob/edit3/Flask/Connections.png)
+![alt text](https://github.com/KhyatiMehta3/AutRcCar/blob/master/Connections.png)
 
 1. Red - Power-Positive.
 2. Black - Ground.
