@@ -2,8 +2,44 @@
   <head>
     <title>Raspberry Pi Car</title>
   </head>
-  <body>
-    <h1>Car Controller</h1>
-    <img src="{{ url_for('video_feed') }}">
-  </body>
+<body>
+		<table style="width:100%; max-width: 500px; height:300px;">
+			<tr>
+				<td>
+					<form action="/1" method="POST">
+						<input type="image" name="direction" src="/static/img/left.svg" value="left" style="float:left; width:80% ;">
+						</br>
+					</form>
+				</td>
+				<td>
+					<form action="/2" method="POST">
+						<input type="image" name="direction" src="/static/img/forward.svg" value="forward" style="float:left; width:80%;">
+						</br>
+					</form>
+				</td>
+				<td>
+
+					<form action="/3" method="POST">
+						<input type="image" name="direction" src="/static/img/right.svg" value="right" style="float:left; width:80%;">
+						</br>
+					</form>
+
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<form action="/4" method="POST">
+						<input type="image" name="direction" src="/static/img/reverse.svg" value="reverse" style=" margin-left:80px; width:80%;">
+						</br>
+					</form>
+				</td>
+				<td>
+					<form action="/5" method="POST">
+						<input type="image" name="direction" src="/static/img/stop.svg" value="stop" style="margin-left:80px; width:80%;">
+						</br>
+					</form>
+				</td>
+			</tr>
+		</table>
+	</body>
 </html>
