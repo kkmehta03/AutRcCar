@@ -67,5 +67,5 @@ print(count)
 train = image_array1[1:, :]
 train_labels = label_array1[1:, :]
 # save training data as a numpy file
-np.savez('training_data_temp/test{}.npz', train=train, train_labels=train_labels, time.time())
+np.savez('training_data_temp/test'+time.strftime("%Y%m%d-%H%M%S")+'.npz',train=train, train_labels=train_labels)
 print('npz file saved!')
