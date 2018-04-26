@@ -9,13 +9,13 @@ This is an autonomous RC car using Raspberry Pi model 3 B+, Motor-driver L293d, 
 6. Power Bank for the raspberry pi.
 # Hardware :
 ![alt text](https://github.com/KhyatiMehta3/AutRcCar/blob/master/Connections.png)
-
+## Description of Connections :
 1. Red - Power-Positive.
 2. Black - Ground.
 3. Blue & Purple - Connections from l293d to Raspberry Pi.
 4. Ochre - Connections HC SR-04 Ultrasonic Sensor to Raspberry pi.
 5. Orange - Connections to the motors.
-## Description of Connections :
+
 ### L293d       - Raspberry Pi 3B+:
 1. Pin1        - Pin13
 2. Pin2        - Pin3
