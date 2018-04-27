@@ -13,7 +13,7 @@ app = Flask(__name__,template_folder='Templates')
 
 @app.route('/')
 def index():
-    """Raspberry Pi Controller"""
+    """Raspberry Pi Car Controller. Make sure you've installed RPi_Cam_Web_interface and ppen https://your-pi-address:80 to stream picamera data"""
     return render_template('index.html')
 
 '''
