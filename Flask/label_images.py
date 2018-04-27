@@ -15,7 +15,6 @@ def label():
     image_array1 = np.zeros((1,115200),'float')
     label_array1 = np.zeros((1,4),'float')
 
-    count = 0
 
     for img in glob.glob("left/*.png"):
         image = cv2.imread(img,cv2.IMREAD_COLOR)
@@ -29,8 +28,6 @@ def label():
     print('left done')
     print(count)
 
-    count = 0
-
     for img in glob.glob("right/*.png"):
         image = cv2.imread(img,cv2.IMREAD_COLOR)
         #cv2.imshow('img',image)
@@ -42,8 +39,6 @@ def label():
     print('right done')
     print(count)
 
-    count =0
-
     for img in glob.glob("forward/*.png"):
         image = cv2.imread(img,cv2.IMREAD_COLOR)
         #cv2.imshow('img',image)
@@ -54,7 +49,7 @@ def label():
         count+=1
     print('forward done')
     print(count)
-    count = 0
+
     for img in glob.glob("reverse/*.png"):
         if not img:
             break
