@@ -30,7 +30,6 @@ def label():
 
     for img in glob.glob("right/*.png"):
         image = cv2.imread(img,cv2.IMREAD_COLOR)
-        #cv2.imshow('img',image)
         roi = image[120:240, :, :]
         temp_array1 = roi.reshape(1,115200).astype(np.float32)
         image_array1 = np.vstack((image_array1, temp_array1))
