@@ -1,3 +1,6 @@
+__author__ = 'kkm'
+''' This file takes ultrasonic reading connected in GPIO 12, 16 and returns distance of object from the car.
+'''
 import RPi.GPIO as gpio
 import time
 
