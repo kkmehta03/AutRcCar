@@ -57,7 +57,7 @@ for img in glob.glob("forward/*.png"):
     count+=1
 print('forward done')
 print(count)
-
+count = 0
 for img in glob.glob("reverse/*.png"):
     if not img:
         break
