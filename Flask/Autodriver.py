@@ -1,5 +1,5 @@
 __author__ = 'kkm'
-''' the car runs at 35.0375 cm/s'''
+''' the car runs at 35.0375 cm/s. Run this file to allow the car to autonomously drive around.'''
 import time
 import picamera
 import numpy as np
