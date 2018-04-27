@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import glob
 import datetime
+import label_images as l
 
 print('Loading training data...')
 e0 = cv2.getTickCount()
@@ -21,9 +22,10 @@ for single_npz in training_data:
     image_array = np.vstack((image_array, train_temp))
     label_array = np.vstack((label_array, train_labels_temp))
 
-train = image_array[1:371, :]
+count = l.label()
+train = image_array[1:count, :]
 #print(train)
-train_labels = label_array[1:371, :]
+train_labels = label_array[1:count, :]
 print(train_labels)
 #validate = image_array[121:158,:]
 #validate_labels = label_array[121:158, : ]
