@@ -1,9 +1,10 @@
+__author__ = 'kkm'
+''' Converts all COLOR images captured here in 320 * 240 resolution, to 120 * 320 res COLOR images and to numpy arrays. Sort all your images manually into left, right, forward, reverse folders and run this file to convert images to numpy arrays.
+'''
 import cv2
 import numpy as np
 import glob
 import time
-import PIL as Image
-from matplotlib import pyplot as plt
 
 k = np.zeros((4,4), 'float')
 for i in range(4):
@@ -17,12 +18,7 @@ count = 0
 
 for img in glob.glob("left/*.png"):
     image = cv2.imread(img,cv2.IMREAD_COLOR)
-    #print(image)
     roi = image[120:240, :, :]
-    #img1 = Image.fromstring(img,'RGB')
-    #plt.imshow(image,interpolation = 'nearest')
-    #plt.show()
-    #img1.show()
     temp_array1 = roi.reshape(1,115200).astype(np.float32)
     #plt.imshow(temp_array1,interpolation = 'nearest')
     #plt.show()
