@@ -34,7 +34,7 @@ Pin16       | Pin2.
 
 ---------------------------------------------------------------------------------------------------------------------------------------
 # Software :
-## Steps to train the car:
+## Steps to train the car - OPENCV:
 The flask folder contains all the required files to control the pi car from any device (connected to the same network) using a browser, while streaming the camera data.
 1. SSH into your raspberry pi and go to the flask folder.
 2. Run python app.py and open the browser on another device. Type in your raspberry pi's IP address:5000 (which is the default port. Can be changed.)
@@ -53,14 +53,14 @@ Right     | [0 0 1 0]
 Reverse   | [0 0 0 1]
 
 9. The model gets saved in mlp_xml folder.
-## Steps to deploy the model on the pi:
+## Steps to deploy the openCV model on the pi:
 1. Transfer the saved xml model to the pi. 
   -On Windows, use WinSCP software for really quick transfer of mlp.xml files. 
   -On linux, you can directly use scp command after SSH into pi.
 2. cd into your directory where this repo is cloned.
 3. Copy the filename of your xml file and paste it at the neuralnet() object initialization.
 4. Run Python3 Autodriver.py to run the car autonomously.
-## Using Keras model:
+# Using the Keras model:
 1. Fire up jupyter notebook in the cloned directory.
 2. Open the "KerasModel2.ipynb" i-python file.
 3. Press Shift+Enter to execute the code.
@@ -68,7 +68,7 @@ Reverse   | [0 0 0 1]
 5. The model will be saved in "KerasModels" folder.
 6. Be sure to create these folders before executing the code.
 7. The last set of lines are optional. They're to write a CSV file of the trained model and parameters to a json file.
-### Deploying Keras model in raspberry pi:
+## Deploying Keras model in raspberry pi:
 1. Install numpy using - sudo pip install numpy. (First check if you already have it.)
 2. Install scipy using - sudo pip install scipy.
 3. Install keras using - sudo pip3 install keras.
