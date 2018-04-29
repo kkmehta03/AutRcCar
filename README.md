@@ -60,3 +60,18 @@ Reverse   | [0 0 0 1]
 2. cd into your directory where this repo is cloned.
 3. Copy the filename of your xml file and paste it at the neuralnet() object initialization.
 4. Run Python3 Autodriver.py to run the car autonomously.
+## Using Keras model:
+1. Fire up jupyter notebook in the cloned directory.
+2. Open the "KerasModel2.ipynb" i-python file.
+3. Press Shift+Enter to execute the code.
+4. The training data file will be saved in "kerasTranining" folder. 
+5. The model will be saved in "KerasModels" folder.
+6. Be sure to create these folders before executing the code.
+7. The last set of lines are optional. They're to write a CSV file of the trained model and parameters to a json file.
+### Deploying Keras model in raspberry pi:
+1. Install numpy using - sudo pip install numpy. (First check if you already have it.)
+2. Install scipy using - sudo pip install scipy.
+3. Install keras using - sudo pip3 install keras.
+4. Transfer your keras model from your host computer to the raspberry pi. (use WinSCP if on windows).
+5. Edit the file Autodriver_keras.py and include the filename of your saved model.
+6. Run the Autodriver_keras.py file by executing the command - python3 Autodriver_keras.py
