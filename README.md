@@ -71,7 +71,12 @@ Reverse   | [0 0 0 1]
 ## Deploying Keras model in raspberry pi:
 1. Install numpy using - sudo pip install numpy. (First check if you already have it.)
 2. Install scipy using - sudo pip install scipy.
-3. Install keras using - sudo pip3 install keras.
-4. Transfer your keras model from your host computer to the raspberry pi. (use WinSCP if on windows).
-5. Edit the file Autodriver_keras.py and include the filename of your saved model.
-6. Run the Autodriver_keras.py file by executing the command - python3 Autodriver_keras.py
+3. Install tensorflow or Theano. Prefer the one you use on host computer.
+Here's a link to installation process for Tensorflow - https://github.com/samjabrahams/tensorflow-on-raspberry-pi/blob/master/GUIDE.md
+Here's a link to installation process for keras using Theano as backend - http://www.instructables.com/id/Installing-Keras-on-Raspberry-Pi-3/
+4. Install keras using - sudo pip3 install keras. 
+Here's a link to installation process - https://medium.com/@paroskwan/layman-installation-guide-for-keras-and-tensorflow-on-rpi-3-38b84f3e59dc
+5. Transfer your keras model from your host computer to the raspberry pi. (use WinSCP if on windows).
+6. Edit the file Autodriver_keras.py and include the filename of your saved model.
+7. Run the Autodriver_keras.py file by executing the command - python3 Autodriver_keras.py
+There maybe some issues here especially if you are going to use python3.5 here, because tensorflow doesn't have the wheel for python3.5. It has for 3.4. So try using Theano.
