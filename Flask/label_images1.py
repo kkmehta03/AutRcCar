@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import glob
 import time
+from sklearn.utils import shuffle
 
 def label():
 
@@ -65,9 +66,11 @@ def label():
             count+=1
     print('reverse done')
     print(count)
-
-    train = image_array1[1:, :]
-    train_labels = label_array1[1:, :]
+    image_array2 = image_array1[1:,:]
+    label_array2 = label_array1[1:,:]
+    image_array2, label_array2 = shuffle(image_array1, label_array1)
+    train = image_array2[1:, :]
+    train_labels = label_array2[1:, :]
     # save training data as a numpy file
     npzNames = 'training_data_temp/test'+time.strftime("%Y%m%d-%H%M%S")+'.npz'
     np.savez(npzNames,train=train, train_labels=train_labels)
