@@ -1,5 +1,5 @@
 # AutRcCar
-This is an autonomous RC car using Raspberry Pi model 3 B+, Motor-driver L293d, Ultrasonic-sensor- HCSR04 and Picamera, along with OpenCV. Inspired from https://github.com/hamuchiwa/AutoRCCar/ . Thanks to Hamuchiwa for inspiration.
+This is an autonomous RC car using Raspberry Pi model 3 B+, Motor-driver L293d, Ultrasonic-sensor- HCSR04 and Picamera, along with OpenCV. Inspired from https://github.com/hamuchiwa/AutoRCCar/ . Thanks to Hamuchiwa for inspiration. This project has two more contributors - Mehzabeen Najmi and Deepthi V, who are not on Github. 
 # Components:
 1. Raspberry Pi 3 B,
 2. Pi camera,
