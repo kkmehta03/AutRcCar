@@ -80,3 +80,7 @@ Here's a link to installation process - https://medium.com/@paroskwan/layman-ins
 6. Edit the file Autodriver_keras.py and include the filename of your saved model.
 7. Run the Autodriver_keras.py file by executing the command - python3 Autodriver_keras.py
 There maybe some issues here especially if you are going to use python3.5 here, because tensorflow doesn't have the wheel for python3.5. It has for 3.4. So try using Theano.
+# The autonomous car
+![alt text](https://github.com/KhyatiMehta3/AutRcCar/blob/master/car1.jpg)
+## Front View
+![alt text](https://github.com/KhyatiMehta3/AutRcCar/blob/master/car2.jpg)
