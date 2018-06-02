@@ -30,18 +30,20 @@ def video_feed():
     return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@app.route('/<changepin>')
+@app.route('/<int:changepin>')
 def reroute(changepin):
-    changePin = int(changepin)
-    
     if changePin == 1:
         g.leftGPIO()
+        print('going left')
     elif changePin == 2:
         g.forwardGPIO()
+        print('going forward')
     elif changePin == 3:
         g.rightGPIO()
+        print('going right')
     elif changePin == 4:
         g.reverseGPIO()
+        print('going reverse')
     else:
         g.stopGPIO()
         g.clean()
