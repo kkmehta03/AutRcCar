@@ -86,8 +86,6 @@ There maybe some issues here especially if you are going to use python3.5 here, 
 
 
 # The autonomous car
-![alt text](https://github.com/KhyatiMehta3/AutRcCar/blob/master/car1.jpg)
-## Front View
 ![alt text](https://github.com/KhyatiMehta3/AutRcCar/blob/master/car2.jpg)
 ## Autonomous.py in action
 ![alt text](https://github.com/KhyatiMehta3/AutRcCar/blob/master/Project%20Result2.png)
